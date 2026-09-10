@@ -14,7 +14,7 @@ async function runPrompt(system: string, prompt: string) {
 
 function extractJson(text: string): unknown {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/);
-  const raw = fenced ? fenced[1] : text;
+  const raw = (fenced?.[1] ?? text) as string;
   const start = raw.indexOf("{");
   const end = raw.lastIndexOf("}");
   if (start === -1 || end === -1) throw new Error("The assistant returned an unexpected format.");
